@@ -7,7 +7,7 @@
 	              right: 0;
 	              bottom: 0;">
       <div style="flex: 1; background-color: rgba(250,250,250,0.9);">
-        <div style="text-align: center; font-size: 25px; font-weight: 600; margin: 20px; color: #070707">在线教育学习系统</div>
+        <div style="text-align: center; font-size: 25px; font-weight: 600; margin: 20px; color: #070707">网上学堂在线平台</div>
                     <!-- 登录表单区域 -->
                     <el-form :model="tabUser"
                         style="margin: 30px;">

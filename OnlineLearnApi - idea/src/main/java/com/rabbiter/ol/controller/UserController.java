@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
  */
 @RestController
 @RequestMapping("study/user")
