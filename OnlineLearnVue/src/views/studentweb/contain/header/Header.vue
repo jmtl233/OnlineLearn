@@ -13,7 +13,7 @@
                 " />
             </el-col>
             <el-col :span="14" style="font-size: 32px;font-weight: 600;text-align: left;margin: 15px 0 0 0;">
-                在线教育学习系统
+                网上学堂在线平台
             </el-col>
         </el-row>
 
