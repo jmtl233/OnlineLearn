@@ -1,26 +1,26 @@
-package com.rabbiter.ol.dao;
+// package com.rabbiter.ol.dao;
 
-import com.rabbiter.ol.vo.ClassVo;
-import com.rabbiter.ol.entity.ClassEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
+// import com.rabbiter.ol.vo.ClassVo;
+// import com.rabbiter.ol.entity.ClassEntity;
+// import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+// import org.apache.ibatis.annotations.Mapper;
 
-import java.util.HashMap;
-import java.util.List;
+// import java.util.HashMap;
+// import java.util.List;
 
-/**
- * 
- * 
- * @author 
- * @email ${email}
- * @date 2024-02-12 00:22:45
- */
-@Mapper
-public interface ClassDao extends BaseMapper<ClassEntity> {
+// /**
+//  * 
+//  * 
+//  * @author 
+//  * @email ${email}
+//  * @date 2024-02-12 00:22:45
+//  */
+// @Mapper
+// public interface ClassDao extends BaseMapper<ClassEntity> {
 
-    Integer queryCount(ClassVo classVo);
+//     Integer queryCount(ClassVo classVo);
 
-    List<HashMap> queryData(ClassVo classVo);
+//     List<HashMap> queryData(ClassVo classVo);
 
-    List<HashMap> findList(ClassVo classVo);
-}
+//     List<HashMap> findList(ClassVo classVo);
+// }

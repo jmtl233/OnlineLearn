@@ -47,8 +47,6 @@
                 </el-submenu>
                 <el-menu-item index="/onlinelearn">
                     <i class="iconfont icon-r-team" style="color: white;font-size: 26px;"></i> 在线学习</el-menu-item>
-                <el-menu-item index="/studentmanagement">
-                    <i class="iconfont icon-r-building" style="color: white;font-size: 22px;"></i> 班级列表</el-menu-item>
                 <el-menu-item index="/practicedetail">
                     <i class="iconfont icon-r-find" style="color: white;font-size: 22px;"></i> 习题提交记录</el-menu-item>
                 <el-menu-item index="/essentiainfo">

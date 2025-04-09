@@ -54,11 +54,11 @@ public class UserController {
     /**
      * 列表
      */
-    @RequestMapping("/findList")
-    public Result findList(@RequestBody UserVo userVo) {
-        List<HashMap> page = userService.findList(userVo);
-        return Result.success(page);
-    }
+    // @RequestMapping("/findList")
+    // public Result findList(@RequestBody UserVo userVo) {
+    //     List<HashMap> page = userService.findList(userVo);
+    //     return Result.success(page);
+    // }
 
     /**
      * 列表
@@ -84,11 +84,11 @@ public class UserController {
     /**
      * 信息
      */
-    @RequestMapping("/info")
-    public Result info(@RequestBody UserEntity userEntity) throws ParseException {
-        UserEntity user = userService.getById(userEntity.getId());
-        return Result.success(user);
-    }
+    // @RequestMapping("/info")
+    // public Result info(@RequestBody UserEntity userEntity) throws ParseException {
+    //     UserEntity user = userService.getById(userEntity.getId());
+    //     return Result.success(user);
+    // }
 
     /**
      * 保存
@@ -154,57 +154,57 @@ public class UserController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
-    public Result update(@RequestBody UserVo userVo) {
-        boolean b;
-        if (userVo.getUserEntity() == null) {
-            UserEntity userEntity = new UserEntity();
-            userEntity.setId(userVo.getId());
-            userEntity.setUserName(userVo.getUserName());
-            userEntity.setSex(userVo.getSex());
-            userEntity.setPhone(userVo.getPhone());
-            b = userService.updateById(userEntity);
-        } else {
-            b = userService.updateById(userVo.getUserEntity());
-        }
+    // @RequestMapping("/update")
+    // public Result update(@RequestBody UserVo userVo) {
+    //     boolean b;
+    //     if (userVo.getUserEntity() == null) {
+    //         UserEntity userEntity = new UserEntity();
+    //         userEntity.setId(userVo.getId());
+    //         userEntity.setUserName(userVo.getUserName());
+    //         userEntity.setSex(userVo.getSex());
+    //         userEntity.setPhone(userVo.getPhone());
+    //         b = userService.updateById(userEntity);
+    //     } else {
+    //         b = userService.updateById(userVo.getUserEntity());
+    //     }
 
-        if (b) {
-            if (userVo.getClassId() != null) {
-                //根据老师ID删除老师所对应的班级并重新新增
-                QueryWrapper<UserClassEntity> userClassQueryWrapper = new QueryWrapper<>();
-                if (userVo.getUserEntity() != null) {
-                    userClassQueryWrapper.eq("user_id", userVo.getUserEntity().getId());
-                } else {
-                    userClassQueryWrapper.eq("user_id", userVo.getId());
-                }
-                userClassService.remove(userClassQueryWrapper);
+    //     if (b) {
+    //         if (userVo.getClassId() != null) {
+    //             //根据老师ID删除老师所对应的班级并重新新增
+    //             QueryWrapper<UserClassEntity> userClassQueryWrapper = new QueryWrapper<>();
+    //             if (userVo.getUserEntity() != null) {
+    //                 userClassQueryWrapper.eq("user_id", userVo.getUserEntity().getId());
+    //             } else {
+    //                 userClassQueryWrapper.eq("user_id", userVo.getId());
+    //             }
+    //             userClassService.remove(userClassQueryWrapper);
 
-                UserClassEntity userClassEntity = new UserClassEntity();
-                userClassEntity.setClassId(userVo.getClassId());
-                if (userVo.getUserEntity() != null) {
-                    userClassEntity.setUserId(userVo.getUserEntity().getId());
-                } else {
-                    userClassEntity.setUserId(userVo.getId());
-                }
-                userClassService.save(userClassEntity);
-            }
+    //             UserClassEntity userClassEntity = new UserClassEntity();
+    //             userClassEntity.setClassId(userVo.getClassId());
+    //             if (userVo.getUserEntity() != null) {
+    //                 userClassEntity.setUserId(userVo.getUserEntity().getId());
+    //             } else {
+    //                 userClassEntity.setUserId(userVo.getId());
+    //             }
+    //             userClassService.save(userClassEntity);
+    //         }
 
 
-            if (userVo.getSubjectId() != null) {
-                //根据老师ID删除老师所对应的科目并重新新增
-                QueryWrapper<UserSubjectEntity> userSubjectQueryWrapper = new QueryWrapper<>();
-                userSubjectQueryWrapper.eq("user_id", userVo.getUserEntity().getId());
-                userSubjectService.remove(userSubjectQueryWrapper);
+    //         if (userVo.getSubjectId() != null) {
+    //             //根据老师ID删除老师所对应的科目并重新新增
+    //             QueryWrapper<UserSubjectEntity> userSubjectQueryWrapper = new QueryWrapper<>();
+    //             userSubjectQueryWrapper.eq("user_id", userVo.getUserEntity().getId());
+    //             userSubjectService.remove(userSubjectQueryWrapper);
 
-                UserSubjectEntity userSubjectEntity = new UserSubjectEntity();
-                userSubjectEntity.setSubjectId(userVo.getSubjectId());
-                userSubjectEntity.setUserId(userVo.getUserEntity().getId());
-                userSubjectService.save(userSubjectEntity);
-            }
-            return Result.successCode();
-        }
-        return Result.failureCode();
-    }
+    //             UserSubjectEntity userSubjectEntity = new UserSubjectEntity();
+    //             userSubjectEntity.setSubjectId(userVo.getSubjectId());
+    //             userSubjectEntity.setUserId(userVo.getUserEntity().getId());
+    //             userSubjectService.save(userSubjectEntity);
+    //         }
+    //         return Result.successCode();
+    //     }
+    //     return Result.failureCode();
+    // }
 
     /**
      * 删除

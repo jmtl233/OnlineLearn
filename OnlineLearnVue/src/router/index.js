@@ -18,7 +18,7 @@ import AskAndAnswer from '../views/studentweb/askandanswer/AskAndAnswer.vue'
 import StudentPractice from '../views/studentweb/practice/StudentPractice.vue'
 import OnLineLearn from '../views/studentweb/onlinelearn/OnLineLearn.vue'
 import EssentiaInfo from '../views/studentweb/essentialinformation/EssentiaInfo.vue'
-import StudentManagement from '../views/studentweb/studentmanagement/StudentManagement.vue'
+// import StudentManagement from '../views/studentweb/studentmanagement/StudentManagement.vue'
 import AdminManagement from '../views/admin/AdminManagement.vue'
 import MarkDown from '../views/studentweb/markdown/MarkDown.vue'
 import DetaliCourse from '../views/studentweb/askandanswer/DetaliCourse.vue'
@@ -30,7 +30,7 @@ import TestManagement from '../views/admin/testmanagement/TestManagement.vue'
 import KnowledgePoints from '../views/admin/knowledgepoints/KnowledgePoints.vue'
 import AdminPersonalInfo from '../views/admin/personalInfo/PersonalInfo.vue'
 import TeacherPersonalInfo from '../views/admin/personalInfo/PersonalInfo.vue'
-import ApplicantHistory from '../views/studentweb/studentmanagement/ApplicantHistory.vue'
+// import ApplicantHistory from '../views/studentweb/studentmanagement/ApplicantHistory.vue'
 import TeacherApplicant from '../views/teacherapplicant/TeacherApplicant.vue'
 import DetailOnlineWeb from '../views/studentweb/onlinelearn/DetailOnlineWeb.vue'
 import PracticeDetail from '../views/studentweb/practice/practiceDetail/PracticeDetail.vue'
@@ -328,32 +328,6 @@ const routes = [
                     requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
                 },
             },
-            {
-                path: '/studentmanagement',
-                name: 'StudentManagement',
-                component: StudentManagement,
-                meta: {
-                    requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-                },
-            },
-            {
-                path: '/applicanthistory',
-                name: 'ApplicantHistory',
-                component: ApplicantHistory,
-                meta: {
-                    requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-                },
-            },
-
-            {
-                path: '/applicanthistory',
-                name: 'ApplicantHistory',
-                component: ApplicantHistory,
-                meta: {
-                    requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-                },
-            },
-
             {
                 path: '/point',
                 name: 'Point',
