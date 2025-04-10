@@ -1,5 +1,5 @@
 module.exports = {
-  // ...
-  lintOnSave: false,
-  // ...
+  rules: {
+    // 这里放置ESLint规则
+  }
 }
