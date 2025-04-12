@@ -5,7 +5,7 @@ export function listClass(data) {
     // alert('ppppp')
     return post('/api/study/class/list ', data)
 }
-export function delteClass(data) {
+export function deleteClass(data) {
     // alert('ppppp')
     return post('/api/study/class/delete', data)
 }
