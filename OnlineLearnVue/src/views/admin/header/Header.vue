@@ -6,6 +6,7 @@
                     在线教育学习系统（管理员）
                 </div>
 
+            <!-- 用户操作菜单 -->
                 <div class="blockl">
                     <el-submenu index="2">
                         <template slot="title">
@@ -18,6 +19,8 @@
                 </div>
             </div>
         </el-menu>
+
+<!--        //修改密码对话框-->
         <div>
             <el-dialog title="修改密码" :visible.sync="dialogFormVisible" width="30%" :before-close="handleClose">
                 <el-input placeholder="请输入原密码" v-model="changePassword.password" show-password></el-input>
@@ -44,13 +47,13 @@ export default {
     data() {
         return {
 
-            changePassword: {
+            changePassword: {     //密码修改数据模型
                 password: '',
                 conPassword: '',
                 newPassword: '',
-                id: ''
+                id: ''             //从Cookies获取的用户ID
             },
-            dialogFormVisible: false,
+            dialogFormVisible: false,   //对话框显示控制
             info: {
                 password: '',
                 newPassword: '',
@@ -63,17 +66,17 @@ export default {
         this.changePassword.id = Cookies.get("userId")
     },
     methods: {
-        handleClose(done) {
+        handleClose(done) {            //显示修改密码对话框
             this.$confirm('确认关闭？')
                 .then(() => {
-                    done();
+                    done();     //确认关闭
                 })
-                .catch(() => { });
+                .catch(() => { });   //取消关闭
         },
         change() {
-            this.dialogFormVisible = true
+            this.dialogFormVisible = true   //显示弹窗
         },
-
+       // 表单验证，验证输入两次密码是否一致、为空，在根据password（）api提交修改请求，响应成功or失败
         submit(da) {
             if (this.changePassword.password.trim() == '') {
 
@@ -98,7 +101,7 @@ export default {
                     type: 'error'
                 });
                 return;
-            }
+            }//调用修改密码接口
             password(da).then(resp => {
                 if (resp.data.code == 200) {
                     this.$message({
@@ -112,11 +115,12 @@ export default {
                 }
             })
         },
+        //清除用户登录信息并跳转到登录页面
         logout() {
             Cookies.remove('userId')
             Cookies.remove('classId')
             Cookies.remove('roleId')
-            this.$router.push('/login')
+            this.$router.push('/login')  //跳转登录页
             this.$message({
                 message: '退出成功',
                 type: 'success'
@@ -126,6 +130,7 @@ export default {
 }
 </script>
 
+<!--css部分-->
 <style scoped>
 .block {
     height: 61px;
@@ -138,11 +143,9 @@ export default {
     height: 61px;
 }
 .el-submenu /deep/ .el-submenu__title:hover {
-  background-color: #424242 !important;
+  background-color: #424242 !important;    /* 鼠标悬停时菜单背景色 */
 }
-/*.el-submenu__title:hover {*/
-/*  background-color: #222 !important;*/
-/*}*/
+
 
 .ls {
     height: 100%;

@@ -1,93 +1,84 @@
 <template>
     <div>
-        <el-row :gutter="24" style="height: 80px">
-            <el-col :span="10" style="text-align: right;">
-                <img src="@/assets/03.png" style="
-                    width: 40px;
-                    height: 40px;
-                    padding: 15px 0 0 0;
-                    -webkit-user-drag: none;
-                    -khtml-user-drag: none;
-                    -moz-user-drag: none;
-                    user-drag: none;
-                " />
-            </el-col>
-            <el-col :span="14" style="font-size: 32px;font-weight: 600;text-align: left;margin: 15px 0 0 0;">
-                在线教育学习系统
-            </el-col>
-        </el-row>
+        <div class="nav-container">
+            <el-menu
+                class="custom-menu"
+                background-color="#fff"
+                text-color="#409EFF"
+                active-text-color="#fff"
+                :default-active="activeParentIndex"
+                :router="true"
+                mode="horizontal"
+                @select="handleSelect">
 
-        <div style="margin: 0 -20px 0 -20px;padding: 0;">
-            <el-menu :background-color="'black'" :text-color="'white'" :active-text-color="'white'" :default-active="'1'"
-                class="el-menu-demo" :router="true" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="/home">
-                    <i class="iconfont icon-r-home" style="color: white;font-size: 22px;"></i>
-                    首页
-                </el-menu-item>
-                <el-submenu index="1" style="font-size: 20px">
-                    <template slot="title">
-                        <span style="font-size: 20px;">
-                            <i class="iconfont icon-r-paper" style="color: white;font-size: 22px;"></i>
-                             作业管理
-                        </span>
-                    </template>
-                    <el-submenu index="1-1">
-                        <template slot="title"><span style="font-size: 20px;">
-                    <i class="iconfont icon-r-find" style="color: white;font-size: 22px;"></i> 查看作业</span> </template>
-                        <el-menu-item index="/checkhomework">
-                    <i class="iconfont icon-r-refresh" style="color: white;font-size: 22px;"></i> 已完成</el-menu-item>
-                        <el-menu-item index="/nohomework">
-                    <i class="iconfont icon-r-refresh" style="color: white;font-size: 22px;"></i> 未完成</el-menu-item>
-                    </el-submenu>
-                    <el-menu-item index="/askandanswer">
-                    <i class="iconfont icon-r-shield" style="color: white;font-size: 22px;"></i> 问答</el-menu-item>
-                    <el-menu-item index="/studentpractice">
-                    <i class="iconfont icon-r-edit" style="color: white;font-size: 22px;"></i> 试题</el-menu-item>
+                <!-- 左侧Logo -->
+                <div class="logo-container">
+                    <i class="el-icon-s-platform logo-icon"></i>
+                    <span class="platform-name">在线学习平台</span>
+                </div>
 
-                </el-submenu>
-                <el-menu-item index="/onlinelearn">
-                    <i class="iconfont icon-r-team" style="color: white;font-size: 26px;"></i> 在线学习</el-menu-item>
-                <el-menu-item index="/studentmanagement">
-                    <i class="iconfont icon-r-building" style="color: white;font-size: 22px;"></i> 班级列表</el-menu-item>
-                <el-menu-item index="/practicedetail">
-                    <i class="iconfont icon-r-find" style="color: white;font-size: 22px;"></i> 习题提交记录</el-menu-item>
-                <el-menu-item index="/essentiainfo">
-                    <i class="iconfont icon-r-user2" style="color: white;font-size: 22px;"></i> 基本信息</el-menu-item>
-                <div class="cn">
-                    <div class="blockl">
-
-                        <el-submenu index="2">
-                            <template slot="title">
-                                        <i style="font-size: 50px;color: #ffffff; margin-right: 20px;"
-                                            class="iconfont icon-r-user2"></i>
-                            </template>
-                            <el-menu-item index="/checkhomework" @click="logout()">
-                    <i class="iconfont icon-r-left" style="color: white;font-size: 22px;"></i> 退出</el-menu-item>
-                            <el-menu-item @click="change()">
-                    <i class="iconfont icon-r-lock" style="color: white;font-size: 22px;"></i> 修改密码</el-menu-item>
+                <!-- 导航菜单 -->
+                <div class="nav-items">
+                    <el-menu-item index="/home">首页</el-menu-item>
+                    <el-submenu
+                        index="1"
+                        popper-class="nav-submenu"
+                        class="no-arrow-submenu homework-submenu"
+                        @mouseenter.native="showSubmenu(1)"
+                        @mouseleave.native="closeSubmenu(1)">
+                        <template slot="title" class="sub-title">作业管理</template>
+                        <el-submenu index="1-1" class="centered-submenu">
+                            <template slot="title">查看作业</template>
+                            <el-menu-item index="/checkhomework">已完成</el-menu-item>
+                            <el-menu-item index="/nohomework">未完成</el-menu-item>
                         </el-submenu>
-                    </div>
+                        <el-menu-item index="/askandanswer">问答</el-menu-item>
+                        <el-menu-item index="/studentpractice">试题</el-menu-item>
+                    </el-submenu>
+                    <el-menu-item index="/onlinelearn">在线学习</el-menu-item>
+                    <el-menu-item index="/studentmanagement">班级列表</el-menu-item>
+                    <el-menu-item index="/practicedetail">习题记录</el-menu-item>
+                    <el-menu-item index="/essentiainfo">基本信息</el-menu-item>
+                </div>
+
+                <!-- 右侧用户菜单 -->
+                <div class="user-menu-wrapper">
+                    <el-submenu
+                        index="2"
+                        popper-class="user-menu"
+                        class="no-arrow-submenu"
+                        @mouseenter.native="showSubmenu(2)"
+                        @mouseleave.native="closeSubmenu(2)">
+                        <template slot="title">
+                            <div class="demo-type">
+                                <div>
+                                    <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+                                </div>
+                            </div>
+                        </template>
+                        <el-menu-item
+                            index="/checkhomework"
+                            @click="logout()"
+                            class="full-text-menu-item">退出登录</el-menu-item>
+                        <el-menu-item
+                            @click="change()"
+                            class="full-text-menu-item">修改密码</el-menu-item>
+                    </el-submenu>
                 </div>
             </el-menu>
-
         </div>
 
-
-            <el-dialog  :modal-append-to-body='false' title="修改密码" :visible.sync="dialogFormVisible" width="30%" :before-close="handleClose">
-
-                <el-input placeholder="请输入原密码" v-model="changePassword.password" show-password></el-input>
-                <p>
-
-                    <el-input placeholder="请输入新密码" v-model="changePassword.newPassword" show-password></el-input>
-                </p>
-                <span slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false"> 取 消</el-button>
-                    <el-button type="primary" @click="submit(changePassword)"> 确 定</el-button>
-                </span>
-            </el-dialog>
-
-
-
+        <!-- 修改密码对话框 -->
+        <el-dialog title="修改密码" :visible.sync="dialogFormVisible" width="30%">
+            <el-input placeholder="请输入原密码" v-model="changePassword.password" show-password></el-input>
+            <p>
+                <el-input placeholder="请输入新密码" v-model="changePassword.newPassword" show-password></el-input>
+            </p>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogFormVisible = false">取消</el-button>
+                <el-button type="primary" @click="submit(changePassword)">确定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -99,48 +90,61 @@ export default {
     name: "Header",
     data() {
         return {
+            activeParentIndex: '/home',
             changePassword: {
                 password: '',
                 newPassword: '',
                 id: ''
             },
             dialogFormVisible: false,
-            info: {
-                password: '',
-                newPassword: '',
-                id: ''
-            },
-            drawer: false,
+            submenuPaths: [
+                '/checkhomework',
+                '/nohomework',
+                '/askandanswer',
+                '/studentpractice'
+            ]
         }
     },
     created() {
         this.changePassword.id = Cookies.get("userId")
+        this.setActiveParentIndex()
+    },
+    watch: {
+        $route() {
+            this.setActiveParentIndex()
+        }
     },
     methods: {
-
-        handleSelect() {
-
+        setActiveParentIndex() {
+            const path = this.$route.path
+            if(this.submenuPaths.includes(path)) {
+                this.activeParentIndex = '1'
+            } else {
+                this.activeParentIndex = path
+            }
         },
-        handleClose(done) {
-            this.$confirm('确认关闭？')
-                .then(_ => {
-                    done();
-                })
-                .catch(_ => { });
+        handleSelect(index) {
+            this.activeParentIndex = index
+        },
+        showSubmenu(index) {
+            document.querySelector(`.el-submenu[index="${index}"]`).click()
+        },
+        closeSubmenu(index) {
+            setTimeout(() => {
+                const submenu = document.querySelector(`.el-submenu[index="${index}"]`)
+                if (!submenu.contains(document.activeElement)) {
+                    submenu.querySelector('.el-submenu__title').click()
+                }
+            }, 100)
         },
         change() {
             this.dialogFormVisible = true
         },
-
         submit(da) {
             password(da).then(resp => {
                 if (resp.data.code == 200) {
-                    this.$message({
-                        message: '密码修改成功 ',
-                        type: 'success'
-                    });
+                    this.$message.success('密码修改成功');
                     this.dialogFormVisible = false
-                    this.studentquery(this.page)
                 } else {
                     this.$message.error('原密码错误');
                 }
@@ -151,75 +155,122 @@ export default {
             Cookies.remove('classId')
             Cookies.remove('roleId')
             this.$router.push('/login')
-            this.$message({
-                message: '退出成功',
-                type: 'success'
-            });
+            this.$message.success('退出成功');
         }
     }
 }
 </script>
 
 <style scoped>
-.el-menu-item {
-    font-size: 20px
+.nav-container {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
 }
 
-
-.el-submenu /deep/ .el-submenu__title:hover {
-  background-color: #424242 !important;
-}
-
-h1 {
-    /* position: absolute; */
-    margin-left: 40%;
-}
-
-/* .el-menu--horizontal>.el-submenu .el-submenu__title {
-    height: 60px;
-    line-height: 60px;
-    border-bottom: 2px solid transparent;
-    color: #ffffff !important;
-} */
-
-.el-dialog__wrapper {
-    z-index: 9999 !important;
-}
-
-.blockl {
-    position: absolute;
-    right: 0px;
-}
-
-.el-menu {
-    border-right: solid 1px #e6e6e6;
-    list-style: none;
-    /* position: relative; */
-    margin: 0;
-    padding-left: 0;
-    background-color: black;
-}
-
-.el-menu--horizontal>.el-menu-item[data-v-15228138] {
-    /* float: left; */
-    height: 60px;
-    line-height: 60px;
-    margin: 0;
-    border-bottom: 2px solid transparent;
-    color: #ffffff;
-    background-color: black;
-}
-
-/* .el-menu--horizontal>.el-submenu .el-submenu__title {
-    height: 60px;
-    line-height: 60px;
-    border-bottom: 2px solid transparent;
-    color: #ffffff;
-} */
-
-
-.cn {
+.custom-menu {
     display: flex;
     justify-content: space-between;
+    padding: 0 60px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-right: 60px;
+}
+.logo-icon {
+    font-size: 32px;
+    color: #409EFF;
+    margin-right: 12px;
+}
+.platform-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #409EFF;
+}
+
+.nav-items {
+    flex: 1;
+    display: flex;
+    margin-left: 40px;
+}
+.el-menu-item {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px;
+    position: relative;
+}
+.el-menu-item.is-active {
+    background: #409EFF !important;
+    color: #fff !important;
+    border-radius: 4px;
+}
+
+.user-menu-wrapper {
+    margin-right: 40px;
+}
+
+.no-arrow-submenu ::v-deep .el-submenu__icon-arrow {
+    display: none !important;
+}
+
+.homework-submenu ::v-deep .el-submenu__title {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+    height: 60px;
+    line-height: 60px;
+}
+</style>
+
+<style>
+.el-menu--horizontal.el-menu {
+    border-bottom: none !important;
+}
+
+.el-menu--horizontal > .el-submenu .el-submenu__title {
+    height: 60px !important;
+    line-height: 60px !important;
+    padding: 0 20px !important;
+}
+
+.nav-submenu {
+    margin-top: -5px !important;
+}
+
+.nav-submenu .el-menu {
+    padding: 0 !important;
+}
+
+.nav-submenu .el-menu-item {
+    height: 40px !important;
+    line-height: 40px !important;
+    text-align: center !important;
+    min-width: 120px !important;
+    padding: 0 20px !important;
+}
+
+.centered-submenu .el-menu {
+    padding: 0 !important;
+}
+
+.el-menu--popup {
+    min-width: 120px !important;
+}
+
+.el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+    background: #409EFF !important;
+    color: #fff !important;
+    border-radius: 4px;
+}
+
+.user-menu .el-menu-item {
+    min-width: 120px !important;
+    padding: 0 20px !important;
 }
 </style>

@@ -1,3 +1,8 @@
+<!--左侧导航栏-->
+<!--包含8个核心模块导航-->
+<!--使用iconfont图标库-->
+<!--通过$route.path实现路由高亮-->
+
 <template>
     <el-row class="aside">
         <el-col :span="24">
