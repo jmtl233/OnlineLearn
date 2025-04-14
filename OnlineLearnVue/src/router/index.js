@@ -361,6 +361,21 @@ const routes = [
                 meta: {
                     requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
                 },
+            }, //试题页面（作业管理试题）
+            {
+                path: '/studentpractice',
+                name: 'StudentPractice',
+                component: StudentPractice,
+                meta: {
+                    title: '试题练习',
+                    menuParent: '/homework',
+                }
+            },//在线学习主页面
+            {
+                path: '/onlinelearn',
+                name: 'OnLineLearn',
+                component: OnLineLearn,
+                meta: { requireAuth: true }
             },
 
 

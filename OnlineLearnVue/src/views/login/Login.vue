@@ -1,4 +1,4 @@
-<template>
+<template xmlns:el-form-item="">
     <div class="container">
         <!-- 修改为左右布局 -->
         <div class="layout-container">
