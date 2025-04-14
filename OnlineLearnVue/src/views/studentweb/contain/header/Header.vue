@@ -259,6 +259,16 @@ export default {
     padding: 0 !important;
 }
 
+.homework-submenu .centered-submenu.el-submenu ::v-deep .el-submenu__title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    color: #409EFF !important;
+    padding: 0 20px !important;
+}
+
 .el-menu--popup {
     min-width: 120px !important;
 }

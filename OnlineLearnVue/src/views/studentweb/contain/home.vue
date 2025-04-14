@@ -278,20 +278,27 @@ export default {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s;
-}
-
-.quick-card:hover {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    height: 140px;  /* 新增固定高度 */
+    display: flex;  /* 启用flex布局 */
+    flex-direction: column;
+    justify-content: center;  /* 垂直居中 */
+    position: relative;  /* 为进度条定位做准备 */
 }
 
 .quick-card i {
     font-size: 36px;
     margin-bottom: 10px;
     color: #409EFF;
+    flex-shrink: 0;  /* 防止图标被压缩 */
 }
 
 .el-progress {
-    margin-top: 15px;
+    margin-top: 8px;  /* 调整间距 */
+    width: 80%;  /* 限制进度条宽度 */
+    position: absolute;  /* 绝对定位 */
+    bottom: 20px;  /* 距离底部间距 */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .homework-card ::v-deep .el-table__row {

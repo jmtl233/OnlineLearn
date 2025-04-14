@@ -12,6 +12,11 @@ import vuescroll from 'vuescroll';
 Vue.use(vuescroll);
 Vue.use(VideoPlayer)
 
+
+// main.js
+import { MessageBox } from 'element-ui'
+Vue.prototype.$alert = MessageBox.alert
+
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 Vue.use(mavonEditor)
