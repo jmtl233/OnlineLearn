@@ -221,10 +221,21 @@ export default {
 
 .homework-submenu ::v-deep .el-submenu__title {
     font-size: 20px !important;
-    font-weight: 700 !important;
+    font-weight: 700 !important;  /* 确保父级菜单加粗 */
     letter-spacing: 1px;
     height: 60px;
     line-height: 60px;
+}
+
+.homework-submenu .centered-submenu.el-submenu ::v-deep .el-submenu__title {
+    font-size: 18px !important;
+    font-weight: 700 !important;  /* 统一加粗程度 */
+    letter-spacing: 1px !important;
+    height: 40px !important;
+    line-height: 40px !important;
+    color: #409EFF !important;
+    padding: 0 20px !important;
+    font-family: inherit !important;  /* 新增字体继承 */
 }
 </style>
 
