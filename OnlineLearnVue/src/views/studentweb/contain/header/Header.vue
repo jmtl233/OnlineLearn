@@ -175,7 +175,6 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 0 60px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .logo-container {

@@ -84,7 +84,6 @@ export default {
     height: 90vh !important;
     overflow-y: auto !important;
     padding: 0 50px 120px 50px;
-    margin-top: 70px;
     background: #f8fafc;
 }
 
