@@ -3,8 +3,7 @@
         <el-menu :default-active="'1'" mode="horizontal" style="line-height: 60px">
             <div class="cn">
                 <div class="title">
-
-                    在线教育学习系统（教师）
+                    网上学堂在线平台（教师）
                 </div>
 
                 <div class="blockl">

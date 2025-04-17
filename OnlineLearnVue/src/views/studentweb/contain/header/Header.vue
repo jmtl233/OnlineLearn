@@ -14,7 +14,7 @@
                 <!-- 左侧Logo -->
                 <div class="logo-container">
                     <i class="el-icon-s-platform logo-icon"></i>
-                    <span class="platform-name">在线学习平台</span>
+                    <span class="platform-name">网上学堂在线平台</span>
                 </div>
 
                 <!-- 导航菜单 -->
