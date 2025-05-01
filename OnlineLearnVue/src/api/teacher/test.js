@@ -14,9 +14,9 @@ export function saveTest(data) {
 }
 
 export function saveHomework(data) {
-    return post('/api/study/homework/save', data)  
+    return post('/api/study/homework/save', data)
 }
 
 export function updateExerciseScore(id, score) {
-    return post('/api/study/userDoExercise/updateScore/' + id + "/" + score)  
+    return post('/api/study/userDoExercise/updateScore/' + id + "/" + score)
 }
