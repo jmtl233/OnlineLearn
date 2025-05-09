@@ -16,7 +16,7 @@
                 <template slot-scope="scope">
                     <el-button type="success" @click="handleEdit(scope.$index, scope.row)"> 编辑
                     </el-button>
-                    <el-button type="danger" @click="handleDelete(scope.row.id)" style="background-color: #c52424"> 删除
+                    <el-button type="danger" @click="handleDelete(scope.row.id)" style="background-color: #f67a7a"> 删除
                     </el-button>
                 </template>
             </el-table-column>

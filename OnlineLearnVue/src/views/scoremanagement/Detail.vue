@@ -133,20 +133,20 @@
             <div class="scoring-area" v-if="check">
                 <el-form-item label="评分">
                     <el-tooltip class="item" effect="dark" :content="mode == '已批改' ? '该作业已批改！' : '输入分数评分'" placement="top-start">
-                        <el-input 
-                            :disabled="mode == '已批改'" 
-                            placeholder="请输入分数" 
+                        <el-input
+                            :disabled="mode == '已批改'"
+                            placeholder="请输入分数"
                             v-model="paramData.score"
                             style="width: 200px">
                         </el-input>
                     </el-tooltip>
                 </el-form-item>
-                
+
                 <el-form-item label="备注">
-                    <el-input 
-                        :disabled="mode == '已批改'" 
-                        type="textarea" 
-                        :rows="3" 
+                    <el-input
+                        :disabled="mode == '已批改'"
+                        type="textarea"
+                        :rows="3"
                         placeholder="请输入备注"
                         v-model="paramData.remark"
                         style="width: 100%">
@@ -227,13 +227,13 @@ export default {
             this.mode = this.$route.params.data2.mode
             this.paramData.remark = this.$route.params.data2.remark
             this.paramData.score = this.$route.params.data2.score
-            
+
             // 如果有内容，创建一个默认题目
             if (this.paramData.content) {
                 this.initQuestionsFromContent();
             }
         }
-        
+
         // 如果没有题目，添加一个默认题目
         if (this.paramData.questions.length === 0) {
             this.addQuestion();
@@ -257,7 +257,7 @@ export default {
         addTest(paramData) {
             // 将题目内容合并到content字段
             this.prepareDataForSubmit();
-            
+
             this.tag = this.$route.params.data1
             if (this.tag == 'homework') {
                 saveHomework(paramData).then(resp => {
@@ -325,21 +325,21 @@ export default {
             if (this.paramData.questions && this.paramData.questions.length > 0) {
                 let contentText = '';
                 let answerText = '';
-                
+
                 this.paramData.questions.forEach((q, index) => {
                     contentText += `## 题目 ${index + 1}：${q.type === 'choice' ? '(选择题)' : q.type === 'blank' ? '(填空题)' : '(问答题)'}\n\n`;
                     contentText += q.content + '\n\n';
-                    
+
                     if (q.type === 'choice' && q.options) {
                         q.options.forEach((opt, i) => {
                             contentText += `${String.fromCharCode(65 + i)}. ${opt}\n`;
                         });
                     }
-                    
+
                     answerText += `## 题目 ${index + 1} 答案：\n\n`;
                     answerText += q.answer + '\n\n';
                 });
-                
+
                 this.paramData.content = contentText;
                 this.paramData.answer = answerText;
             }

@@ -9,18 +9,18 @@
  <!-- 班级表单对话框 ，通过dialogFormVisible控制弹窗显示-->
         <el-dialog title="新增/编辑班级" :visible.sync="dialogFormVisible">
             <el-form :model="form">
-            //班级名字输入，表单数据绑定到form.className
+
                 <el-form-item label="班级名称" :label-width="formLabelWidth">
                     <el-input v-model="form.className" autocomplete="off"></el-input>
                 </el-form-item>
-                //班主任选择，c in form.allTeacher遍历所有老师
+
                 <el-form-item label="班主任" :label-width="formLabelWidth">
                     <el-select v-model="form.userId" placeholder="请选择班主任">
                         <el-option v-for="c in form.allTeacher" :label="c.userName" :value="c.id" :key="c.id"></el-option>
                     </el-select>
                 </el-form-item>
             </el-form>
-            //弹窗底部按钮
+
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false"> 取 消</el-button>
                 <el-button type="primary" @click="submit(form)"> 确 定</el-button>
