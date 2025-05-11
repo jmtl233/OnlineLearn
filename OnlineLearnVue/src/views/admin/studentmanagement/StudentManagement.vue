@@ -14,9 +14,9 @@
 
             <el-table-column label="操作" width="260" fixed="right">
                 <template slot-scope="scope">
-                    <el-button type="success" @click="handleEdit(scope.$index, scope.row)"> 编辑
+                    <el-button type="success" @click="handleEdit(scope.$index, scope.row)" > 编辑
                     </el-button>
-                    <el-button type="danger" @click="handleDelete(scope.row.id)" style="background-color: #f67a7a"> 删除
+                    <el-button type="danger" @click="handleDelete(scope.row.id)" style="background-color: #f56f6f"> 删除
                     </el-button>
                 </template>
             </el-table-column>

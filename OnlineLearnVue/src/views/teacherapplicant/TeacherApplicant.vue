@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="applicant-container">
         <el-table
-                :data="tableData"
-                :default-sort="{prop: 'date', order: 'descending'}"
-                style="width: 100%">
+            :data="tableData"
+            stripe
+            style="width: 100%"
+            class="applicant-table"
+        >
             <el-table-column
                     prop="createTime"
                     label="创建日期"
@@ -33,18 +35,35 @@
             </el-table-column>
 
 
-            <el-table-column label="操作" width="260" fixed="right">
-                <template slot-scope="scope" v-if="scope.row.status=='待审核'">
-                    <el-button type="success"
-                            @click="handleEdit(scope.$index, scope.row)"> 同意
-                    </el-button>
-                    <el-button
+            <el-table-column
+                label="操作"
+                width="260"
+                fixed="right"
+                align="center"
+            >
+                <template slot-scope="scope" v-if="scope.row.status === '待审核'">
+                    <div class="action-buttons">
+                        <el-button
+                            type="success"
+                            size="medium"
+                            class="action-btn"
+                            @click="handleEdit(scope.row)"
+                        >
+                            同意
+                        </el-button>
+                        <el-button
                             type="danger"
-                            @click="handleDelete(scope.$index, scope.row)"> 驳回
-                    </el-button>
+                            size="medium"
+                            class="action-btn"
+                            @click="handleDelete(scope.row)"
+                        >
+                            驳回
+                        </el-button>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
+
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -143,5 +162,40 @@
 </script>
 
 <style scoped>
+.applicant-container {
+    padding: 20px;
+}
 
+.action-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.action-btn {
+    width: 100px;
+    height: 36px;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 保持按钮激活状态的一致性 */
+.action-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .action-btn {
+        width: 80px;
+        font-size: 13px;
+    }
+}
 </style>

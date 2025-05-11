@@ -467,7 +467,7 @@ export default {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
 }
 
-:deep(.gender-option) {
+.deep(.gender-option) {
     display: flex;
     align-items: center;
     gap: 10px;

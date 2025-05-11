@@ -1,48 +1,50 @@
 <template>
     <el-row class="aside">
         <el-col :span="24">
-            <el-menu :default-active="this.$route.path" background-color="#504f4f" text-color="#ffffff" :router="true"
-                active-text-color="white">
+            <el-menu
+                :default-active="$route.path"
+                class="custom-menu"
+                :router="true"
+                background-color="#fff3e0"
+                text-color="#333"
+                active-text-color="#333">
                 <el-menu-item index="/teacherHome">
-                    <i class="iconfont icon-r-home" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 首页</span>
+                    <i class="iconfont el-icon-s-cooperation"></i>
+                    <span slot="title" class="menu-text">首页</span>
                 </el-menu-item>
                 <el-menu-item index="/studentinfo">
-                    <i class="iconfont icon-r-building" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 班级信息管理</span>
+                    <i class="iconfont el-icon-s-unfold"></i>
+                    <span slot="title" class="menu-text">班级信息管理</span>
                 </el-menu-item>
                 <el-menu-item index="/teacherapplicant">
-                    <i class="iconfont icon-r-refresh" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 加入班级审核</span>
+                    <i class="iconfont el-icon-guide"></i>
+                    <span slot="title" class="menu-text">加入班级审核</span>
                 </el-menu-item>
                 <el-menu-item index="/scoremanagment">
-                    <i class="iconfont icon-r-paper" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 试题管理</span>
+                    <i class="iconfont el-icon-collection"></i>
+                    <span slot="title" class="menu-text">试题管理</span>
                 </el-menu-item>
                 <el-menu-item index="/classmanagement">
-                    <i class="iconfont icon-r-edit" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 作业管理</span>
+                    <i class="iconfont el-icon-message"></i>
+                    <span slot="title" class="menu-text">作业管理</span>
                 </el-menu-item>
                 <el-menu-item index="/coursemanagement">
-                    <i class="iconfont icon-r-team" style="font-size: 28px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 问答社区</span>
+                    <i class="iconfont el-icon-chat-dot-square"></i>
+                    <span slot="title" class="menu-text">问答社区</span>
                 </el-menu-item>
                 <el-menu-item index="/personalinfo">
-                    <i class="iconfont icon-r-refresh" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 知识点补充</span>
+                    <i class="iconfont el-icon-message-solid"></i>
+                    <span slot="title" class="menu-text">知识点补充</span>
                 </el-menu-item>
                 <el-menu-item index="/video">
-                    <i class="iconfont icon-r-paper" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 视频管理</span>
+                    <i class="iconfont el-icon-video-camera"></i>
+                    <span slot="title" class="menu-text">视频管理</span>
                 </el-menu-item>
                 <el-menu-item index="/teacherpersonalinfo">
-                    <i class="iconfont icon-r-user2" style="font-size: 26px;color: white;"></i>
-                    <span slot="title" style="font-size: 20px;"> 个人信息</span>
+                    <i class="iconfont el-icon-user"></i>
+                    <span slot="title" class="menu-text">个人信息</span>
                 </el-menu-item>
-
             </el-menu>
-
-
         </el-col>
     </el-row>
 </template>
@@ -54,34 +56,60 @@ export default {
 </script>
 
 <style scoped>
-.el-aside {
-    /*background-color: #;*/
-    text-align: left;
-    background-color: #504f4f;
-
-}
-
 .aside {
-    margin-top: 0;
-    background-color: #504f4f;
-    text-align: left;
+    background-color: #fff3e0;
+    height: 100vh;
 }
 
+.custom-menu {
+    border-right: none !important;
+}
+
+/* 菜单项样式调整 */
 .el-menu-item {
-    font-size: 14px;
-    /* padding: 0 20px; */
-    cursor: pointer;
-    /* transition: border-color .3s,background-color .3s,color .3s; */
-    box-sizing: border-box;
+    margin: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    padding-left: 20px !important;
 }
 
-.el-menu-item,
-.el-submenu__title {
-    /* height: 90px; */
-    /* line-height:90px; */
-    position: relative;
-    -webkit-box-sizing: border-box;
-    white-space: nowrap;
-    list-style: none;
+/* 图标和文字左对齐 */
+.el-menu-item > * {
+    flex: 0 0 auto !important;
+}
+
+/* 图标样式调整 */
+.el-menu-item .iconfont {
+    font-size: 20px;
+    color: #666;
+    margin-right: 12px;
+    transition: color 0.3s ease;
+}
+
+/* 文字样式调整 */
+.menu-text {
+    font-size: 15px;
+    font-weight: 500;
+    flex-grow: 0;
+}
+
+/* 悬停效果 */
+.el-menu-item:hover {
+    background-color: white !important;
+}
+
+.el-menu-item:hover .iconfont {
+    color: #333 !important;
+}
+
+/* 激活状态 */
+.el-menu-item.is-active {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.el-menu-item.is-active .iconfont {
+    color: #333 !important;
 }
 </style>
