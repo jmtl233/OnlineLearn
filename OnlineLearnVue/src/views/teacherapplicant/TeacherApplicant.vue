@@ -5,35 +5,50 @@
             stripe
             style="width: 100%"
             class="applicant-table"
+            header-cell-class-name="table-header"
+            row-class-name="table-row"
         >
             <el-table-column
-                    prop="createTime"
-                    label="创建日期"
-                    width="180">
+                prop="createTime"
+                label="创建日期"
+                width="180"
+                align="center">
             </el-table-column>
             <el-table-column
-                    sortable
-                    prop="account"
-                    label="账号">
+                sortable
+                prop="account"
+                label="账号"
+                align="center">
             </el-table-column>
             <el-table-column
-                    prop="userName"
-                    label="姓名"
-                    width="180">
+                prop="userName"
+                label="姓名"
+                width="180"
+                align="center">
             </el-table-column>
             <el-table-column
-                    prop="studentPhone"
-                    label="学生电话">
+                prop="studentPhone"
+                label="学生电话"
+                align="center">
             </el-table-column>
             <el-table-column
-                    prop="status"
-                    label="状态">
+                prop="status"
+                label="状态"
+                align="center">
+                <template slot-scope="scope">
+                    <el-tag
+                        :type="statusType(scope.row.status)"
+                        effect="dark"
+                    >
+                        {{ scope.row.status }}
+                    </el-tag>
+                </template>
             </el-table-column>
             <el-table-column
-                    prop="charger"
-                    label="审核人">
+                prop="charger"
+                label="审核人"
+                align="center">
             </el-table-column>
-
 
             <el-table-column
                 label="操作"
@@ -41,161 +56,215 @@
                 fixed="right"
                 align="center"
             >
-                <template slot-scope="scope" v-if="scope.row.status === '待审核'">
-                    <div class="action-buttons">
-                        <el-button
-                            type="success"
-                            size="medium"
-                            class="action-btn"
-                            @click="handleEdit(scope.row)"
-                        >
-                            同意
-                        </el-button>
-                        <el-button
-                            type="danger"
-                            size="medium"
-                            class="action-btn"
-                            @click="handleDelete(scope.row)"
-                        >
-                            驳回
-                        </el-button>
+                <template slot-scope="scope">
+                    <div class="action-container">
+                        <template v-if="scope.row.status === '待审核'">
+                            <el-button
+                                type="success"
+                                size="medium"
+                                class="action-btn confirm-btn"
+                                @click="handleEdit(scope.row)"
+                            >
+                                <i class="el-icon-check"></i> 同意
+                            </el-button>
+                            <el-button
+                                type="danger"
+                                size="medium"
+                                class="action-btn reject-btn"
+                                @click="handleDelete(scope.row)"
+                            >
+                                <i class="el-icon-close"></i> 驳回
+                            </el-button>
+                        </template>
+                        <div v-else class="status-text">
+                            <i :class="statusIcon(scope.row.status)"></i>
+                            {{ scope.row.status === '已同意' ? '已通过' : '已驳回' }}
+                        </div>
                     </div>
                 </template>
             </el-table-column>
         </el-table>
 
         <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="page.page"
-                :page-sizes="[10, 20, 30, 40]"
-                :page-size="page.pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="tableData.length">
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="page.page"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="page.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total"
+            class="pagination"
+        >
         </el-pagination>
-
     </div>
 </template>
 
 <script>
-    import {tapplicant,alertapplicant} from "../../api/teacher/teacherapplicant.js";
-    import Cookies from 'js-cookie'
-    export default {
-        name: "TeacherApplicant",
-        data(){
-            return{
-                tableData: [],
-                page: {
-                    page: 1, //初始页
-                    pageSize: 10,    //    每页的数据
-                    userId:'',
-                },
+import { tapplicant, alertapplicant } from "../../api/teacher/teacherapplicant.js";
+import Cookies from 'js-cookie'
 
-                alertData:{},
-                flag:true
+export default {
+    name: "TeacherApplicant",
+    data() {
+        return {
+            tableData: [],
+            total: 0,
+            page: {
+                page: 1,
+                pageSize: 10,
+                userId: '',
+            },
+            alertData: {}
+        }
+    },
+    created() {
+        this.page.userId = Cookies.get('userId')
+        this.listUnApplicant(this.page)
+    },
+    methods: {
+        statusType(status) {
+            switch(status) {
+                case '已同意': return 'success'
+                case '已驳回': return 'danger'
+                default: return 'info'
+            }
+        },//操作那一栏
+        statusIcon(status) {
+            return {
+                'el-icon-circle-check': status === '已同意',
+                'el-icon-circle-close': status === '已驳回',
+                'status-icon': true
             }
         },
-        created() {
-            this.page.userId=Cookies.get('userId')
-            this.listUnApplicant(this.page)
-            if(this.tableData.status=='待审核'){
-                this.flag=false
-
-            }
+        handleEdit(row) {
+            this.alertData = { ...row, status: 2 }
+            alertapplicant(this.alertData).then(resp => {
+                if (resp.data.code === 200) {
+                    this.$message.success('已同意该学生加入班级')
+                    this.listUnApplicant(this.page)
+                } else {
+                    this.$message.error('操作失败')
+                }
+            })
         },
-        methods: {
-            handleEdit(index,row){
-                this.alertData=row
-                this.alertData.status=2
-                alertapplicant(this.alertData).then(resp=>{
-                    if(resp.data.code==200){
-                        this.$message({
-                            message: '您已同意该学生加入您的班级',
-                            type: 'success'
-                        });
-                        
-                        this.listUnApplicant(this.page)
-                    }else {
-                        this.$message.error('新增失败');
-                    }
-                })
-
-            },
-
-            handleDelete(index,row){
-                this.alertData=row
-                this.alertData.status=3
-                alertapplicant(this.alertData).then(resp=>{
-                    if(resp.data.code==200){
-                        this.$message({
-                            message: '您已驳回该学生加入您的班级',
-                            type: 'success'
-                        });
-                        this.listUnApplicant(this.page)
-                    }else {
-                        this.$message.error('新增失败');
-                    }
-                })
-
-            },
-
-            handleSizeChange(size) {
-            this.page.pageSize = size;
-            // console.log(this.pageSize,'888')
+        handleDelete(row) {
+            this.alertData = { ...row, status: 3 }
+            alertapplicant(this.alertData).then(resp => {
+                if (resp.data.code === 200) {
+                    this.$message.success('已驳回该申请')
+                    this.listUnApplicant(this.page)
+                } else {
+                    this.$message.error('操作失败')
+                }
+            })
+        },
+        handleSizeChange(size) {
+            this.page.pageSize = size
             this.listUnApplicant(this.page)
-            console.log(`每页 ${size} 条`);
         },
         handleCurrentChange(pageNum) {
-            this.page.pageNum = pageNum;
+            this.page.page = pageNum
             this.listUnApplicant(this.page)
-            console.log(`当前页: ${val}`);
         },
-
         listUnApplicant(page) {
             tapplicant(page).then(resp => {
                 this.tableData = resp.data.resultData.data
-                console.log(this.tableData)
+                this.total = resp.data.resultData.total || 0
             })
-        },
         }
     }
+}
 </script>
 
 <style scoped>
 .applicant-container {
     padding: 20px;
+    background: #f5f7fa;
+    border-radius: 8px;
 }
 
-.action-buttons {
+.table-header {
+    background-color: #409EFF !important;
+    color: white;
+    font-weight: 600;
+}
+
+.table-row {
+    transition: all 0.3s ease;
+}
+
+.table-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.action-container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
+    min-height: 60px;
 }
 
 .action-btn {
     width: 100px;
     height: 36px;
     font-size: 14px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    border-radius: 18px;
+    margin: 0 5px;
+    transition: all 0.3s ease;
 }
 
-.action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+.confirm-btn {
+    background: linear-gradient(45deg, #67c23a, #85ce61);
+    border: none;
 }
 
-/* 保持按钮激活状态的一致性 */
-.action-btn:active {
-    transform: translateY(0);
-    box-shadow: none;
+.reject-btn {
+    background: linear-gradient(45deg, #f56c6c, #e6a23c);
+    border: none;
 }
 
-/* 响应式调整 */
+.status-text {
+    color: #909399;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.status-icon {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+.el-icon-circle-check {
+    color: #67c23a;
+}
+
+.el-icon-circle-close {
+    color: #f56c6c;
+}
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.el-tag {
+    font-size: 13px;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+
 @media (max-width: 768px) {
     .action-btn {
         width: 80px;
         font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .applicant-container {
+        padding: 10px;
     }
 }
 </style>

@@ -49,7 +49,6 @@
 
 <script>
     import {tclassmanagemt,deleteStudent} from "../../api/teacher/teacherclass.js";
-    import {mapState} from 'vuex'
     import Cookies from 'js-cookie'
     export default {
         name: "StudentInfo",
