@@ -1,92 +1,113 @@
 <template>
-    <div class="block">
-        <div style="font-size: 28px;color:grey;font-weight: 600;width: 100%;padding: 50px 0 50px 10px;" v-if="shduleData.length <= 0">
-            - 暂无数据 -
+    <div class="communication-container">
+        <div
+            v-if="shduleData.length <= 0"
+            class="empty-state"
+        >
+            <i class="el-icon-document"></i>
+            <span>暂无沟通记录</span>
         </div>
-        <el-timeline>
 
-            <div v-for="t in shduleData" :key="t.id">
-                <el-timeline-item :timestamp=t.createTime placement="top">
-                    <el-card>
-                        <div class="cs">
-                            <span><el-tag type="success">{{ t.senderName }}提问:</el-tag></span>
-                            <span>
-                                <el-tag type="warning">问题来源：{{ t.topic }}</el-tag>
-                            </span>
+        <el-timeline v-else>
+            <el-timeline-item
+                v-for="t in shduleData"
+                :key="t.id"
+                :timestamp="t.createTime"
+                placement="top"
+                :color="t.status === 1 ? '#67C23A' : '#E6A23C'"
+            >
+                <el-card
+                    :class="['message-card', t.status === 1 ? 'answered' : 'pending']"
+                    shadow="hover"
+                >
+                    <!-- 状态标签 -->
+                    <div class="status-tag">
+                        <el-tag
+                            :type="t.status === 1 ? 'success' : 'warning'"
+                            effect="dark"
+                        >
+                            {{ t.status === 1 ? '已回复' : '待回复' }}
+                        </el-tag>
+                    </div>
 
-                            <span><el-tag type="success">{{ t.recipientName }}回答</el-tag></span>
-                        </div>
-                        <el-divider content-position="center">下面是提问记录</el-divider>
-                        <div class="csc">
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.content>
-                            </el-input>
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.restore>
-                            </el-input>
-                        </div>
-
-                        <div :value="count" class="item" style="margin-top: 15px;">
-                            <el-button type="success" @click="restor(t)"> 回复</el-button>
-                        </div>
-                    </el-card>
-                </el-timeline-item>
-            </div>
-
-            <div v-for="t in shduleData" :key="t.id">
-                <el-timeline-item :timestamp=t.createTime placement="top">
-                    <el-card>
-                        <div class="cs">
-                            <span><el-tag type="success">{{ t.senderName }}提问:</el-tag></span>
-                            <span>
-                                <el-tag type="warning">问题来源：{{ t.topic }}</el-tag>
-                            </span>
-
-                            <span><el-tag type="success">{{ t.recipientName }}回答</el-tag></span>
-                        </div>
-                        <el-divider content-position="center">下面是提问记录</el-divider>
-                        <div class="csc">
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.content>
-                            </el-input>
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.restore>
-                            </el-input>
+                    <!-- 沟通主体 -->
+                    <div class="communication-body">
+                        <div class="participants">
+                            <div class="participant">
+                                <span class="name">{{ t.senderName }}</span>
+                                <el-tag type="info" size="mini">提问者</el-tag>
+                            </div>
+                            <div class="participant">
+                                <span class="name">{{ t.recipientName }}</span>
+                                <el-tag type="info" size="mini">回答者</el-tag>
+                            </div>
                         </div>
 
-                        <div :value="count" class="item" style="margin-top: 15px;">
-                            <el-button type="success" @click="restor(t)"> 回复</el-button>
-                        </div>
-                    </el-card>
-                </el-timeline-item>
-            </div>
+                        <el-divider content-position="left">问题详情</el-divider>
 
-            <div v-for="t in shduleData" :key="t.id">
-                <el-timeline-item :timestamp=t.createTime placement="top">
-                    <el-card>
-                        <div class="cs">
-                            <span><el-tag type="success">{{ t.senderName }}提问:</el-tag></span>
-                            <span>
-                                <el-tag type="warning">问题来源：{{ t.topic }}</el-tag>
-                            </span>
+                        <div class="content-section">
+                            <div class="question">
+                                <h4 class="section-title">
+                                    <i class="el-icon-question"></i>
+                                    问题描述
+                                </h4>
+                                <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    :value="t.content"
+                                    readonly
+                                    resize="none"
+                                    class="readonly-input"
+                                ></el-input>
+                            </div>
 
-                            <span><el-tag type="success">{{ t.recipientName }}回答</el-tag></span>
-                        </div>
-                        <el-divider content-position="center">下面是提问记录</el-divider>
-                        <div class="csc">
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.content>
-                            </el-input>
-                            <el-input type="textarea" :rows="4" placeholder="请输入内容" v-model=t.restore>
-                            </el-input>
+                            <div class="answer">
+                                <h4 class="section-title">
+                                    <i class="el-icon-chat-dot-round"></i>
+                                    {{ t.status === 1 ? '回复内容' : '等待回复' }}
+                                </h4>
+                                <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    v-model="t.restore"
+                                    :readonly="t.status === 1"
+                                    :class="{'answered-input': t.status === 1}"
+                                    :placeholder="t.status === 1 ? '' : '请输入回复内容'"
+                                ></el-input>
+                            </div>
                         </div>
 
-                        <div :value="count" class="item" style="margin-top: 15px;">
-                            <el-button type="success" @click="restor(t)"> 回复</el-button>
+                        <!-- 操作按钮 -->
+                        <div class="action-bar">
+                            <el-button
+                                v-if="t.status !== 1"
+                                type="success"
+                                icon="el-icon-check"
+                                @click="restor(t)"
+                            >
+                                提交回复
+                            </el-button>
+                            <div v-else class="answered-time">
+                                <i class="el-icon-success"></i>
+                                <span>已回复于 {{ t.updateTime }}</span>
+                            </div>
                         </div>
-                    </el-card>
-                </el-timeline-item>
-            </div>
+                    </div>
+                </el-card>
+            </el-timeline-item>
         </el-timeline>
-        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="page.page"
-            :page-sizes="[10, 20, 30, 40]" :page-size="page.pageSize" layout="total, sizes, prev, pager, next, jumper"
-            :total="shduleData.length">
-        </el-pagination>
+
+        <el-pagination
+            v-if="shduleData.length > 0"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="page.page"
+            :page-sizes="[10, 20, 30, 40]"
+            :page-size="page.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="totalCount"
+            class="pagination"
+        ></el-pagination>
     </div>
 </template>
 
@@ -99,60 +120,177 @@ export default {
     data() {
         return {
             shduleData: [],
+            totalCount: 0,
             page: {
-                page: 1, //初始页
-                pageSize: 10,    //    每页的数据
-                userId: ''
-            },
-            count: 0,
+                page: 1,
+                pageSize: 10,
+                userId: Cookies.get('userId')
+            }
         }
     },
     created() {
-        this.page.userId = Cookies.get('userId')
-        this.listShdule(this.page)
+        this.listShdule()
     },
     methods: {
-        restor(shduleData) {
-            shduleData.status = 1
-            addShdule(shduleData).then(resp => {
-                if (resp.data.code == 200) {
-                    this.$message({
-                        message: '回复成功 ',
-                        type: 'success'
-                    });
-                    this.count = this.count + 1
-                    this.listShdule(this.page)
+        // 回复功能
+        async restor(item) {
+            try {
+                // 保存原始状态用于错误回滚
+                const originalStatus = item.status
+                const originalRestore = item.restore
+
+                // 立即更新本地状态
+                item.status = 1
+                item.restore = item.restore || ''
+
+                const { data } = await addShdule(item)
+                if (data.code === 200) {
+                    this.$message.success('回复成功')
+                    // 合并接口返回的最新数据
+                    Object.assign(item, data.resultData)
+                    // 重新获取列表确保数据一致
+                    this.listShdule()
                 } else {
-                    this.$message.error('回复失败');
+                    // 回滚状态
+                    item.status = originalStatus
+                    item.restore = originalRestore
+                    this.$message.error('回复失败')
                 }
-            })
+            } catch (error) {
+                console.error('回复失败:', error)
+                this.$message.error('回复失败')
+            }
         },
-        listShdule(page) {
-            listAllShdule(page).then(resp => {
-                this.shduleData = resp.data.resultData.data
-            })
+
+        // 获取数据列表
+        async listShdule() {
+            try {
+                const { data } = await listAllShdule(this.page)
+                if (data.code === 200) {
+                    this.shduleData = data.resultData.data
+                    this.totalCount = data.resultData.total
+                }
+            } catch (error) {
+                console.error('获取数据失败:', error)
+            }
+        },
+
+        handleSizeChange(size) {
+            this.page.pageSize = size
+            this.listShdule()
+        },
+
+        handleCurrentChange(page) {
+            this.page.page = page
+            this.listShdule()
         }
-    },
+    }
 }
 </script>
 
 <style scoped>
-.item {
+/* 原有样式保持不变 */
+.communication-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 0;
+    color: #909399;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.message-card {
+    position: relative;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.message-card.answered {
+    border-left: 3px solid #67C23A;
+}
+
+.message-card.pending {
+    border-left: 3px solid #E6A23C;
+}
+
+.status-tag {
+    position: absolute;
+    right: 20px;
+    top: -10px;
+}
+
+.participants {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.name {
+    font-weight: 500;
+    color: #303133;
+}
+
+.content-section {
+    margin: 20px 0;
+}
+
+.section-title {
+    color: #606266;
+    font-size: 14px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.readonly-input >>> .el-textarea__inner {
+    background-color: #f5f7fa;
+    cursor: default;
+}
+
+.answered-input >>> .el-textarea__inner {
+    background-color: #f6ffed;
+    border-color: #b7eb8f;
+}
+
+.action-bar {
+    margin-top: 20px;
     display: flex;
     justify-content: flex-end;
 }
 
-.csc {
+.answered-time {
+    color: #67C23A;
+    font-size: 13px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
 }
 
-.cs {
-    display: flex;
-    justify-content: space-between;
+.pagination {
+    margin-top: 30px;
+    text-align: center;
 }
 
-h4 {
-    display: inline !important;
+.el-timeline {
+    padding-left: 20px;
 }
 </style>
