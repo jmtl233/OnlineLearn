@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//教师学科分配，学生选课关系维护
+//学科权限控制基础，教学资源访问控制依据
 /**
  * 
  *
  * @author 
  * @email ${email}
- * @date 2024-02-15 21:39:15
+ * @date
  */
 @RestController
 @RequestMapping("study/userSubject")

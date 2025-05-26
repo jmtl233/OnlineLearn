@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
 @RestController
 @RequestMapping("study/knowledgePoint")
@@ -30,7 +30,7 @@ public class KnowledgePointController {
     private KnowledgePointService knowledgePointService;
 
     /**
-     * 列表
+     * 分页查询列表
      */
     @RequestMapping("/list")
     public Result list(@RequestBody KnowledgePointVo knowledgePointVo) {
@@ -38,7 +38,7 @@ public class KnowledgePointController {
         Map<String, Object> page = knowledgePointService.queryPage(knowledgePointVo);
         return Result.success(page);
     }
-
+//​按班级查询列表
     @RequestMapping("/stuPointList")
     public Result stuPointList(@RequestParam("classId") String classId) {
         QueryWrapper<KnowledgePointEntity> queryWrapper= new QueryWrapper<>();
@@ -48,7 +48,7 @@ public class KnowledgePointController {
     }
 
     /**
-     * 信息
+     * ​查询单个详情信息
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id) {
@@ -58,7 +58,7 @@ public class KnowledgePointController {
     }
 
     /**
-     * 保存
+     * ​新增知识点
      */
     @RequestMapping("/save")
     public Result save(@RequestBody KnowledgePointEntity knowledgePoint) {
@@ -71,7 +71,7 @@ public class KnowledgePointController {
     }
 
     /**
-     * 修改
+     * ​修改知识点
      */
     @RequestMapping("/update")
     public Result update(@RequestBody KnowledgePointVo knowledgePointVo) {
@@ -88,7 +88,7 @@ public class KnowledgePointController {
     }
 
     /**
-     * 删除
+     * ​删除知识点
      */
     @RequestMapping("/delete")
     public Result delete(@RequestBody KnowledgePointEntity knowledgePoint) {

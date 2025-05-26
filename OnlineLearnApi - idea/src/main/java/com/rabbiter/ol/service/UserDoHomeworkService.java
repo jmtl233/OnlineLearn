@@ -12,13 +12,14 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
+//作业管理：提交状态、教师批改、学生成绩查看
 public interface UserDoHomeworkService extends IService<UserDoHomeworkEntity> {
 
-
+//分页查询作业提交记录
     Map<String, Object> queryPage(UserDoHomeworkVo userDoHomeworkVo);
-
+//作业批改功能
     Boolean updateModeByUserId(String userId, String homeworkId,String score,String remark);
 
 }

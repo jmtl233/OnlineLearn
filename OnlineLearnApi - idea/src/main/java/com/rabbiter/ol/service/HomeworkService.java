@@ -12,13 +12,14 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
+//作业管理、作业发布与截止时间管理、作业批改、成绩统计
 public interface HomeworkService extends IService<HomeworkEntity> {
 
-
+//分页查询作业列表
     Map<String, Object> queryPage(HomeworkVo homeworkVo);
-
+//查询学生未提交的作业
     Map<String, Object> findNotDoHomework(HomeworkVo homeworkVo);
 
 }

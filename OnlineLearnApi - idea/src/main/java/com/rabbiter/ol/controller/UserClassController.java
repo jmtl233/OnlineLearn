@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
+//加入班级
+//用户班级管理模块的入口控制器
+//查询用户所在班级
+//实现学生加入或者退出班级
+//教师查看班级成员
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:21
+ * @date 
  */
 @RestController
 @RequestMapping("study/userClass")

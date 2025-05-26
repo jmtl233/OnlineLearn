@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//该控制器实现了提问管理的基础功能，
+//通过分层架构（Controller → Service → DAO）分离关注点。
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:21
+ * @date 
  */
 @RestController
 @RequestMapping("study/askQuestions")

@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//处理用户相关的请求，包括用户的注册、登录、信息查询等功能
+//用户权限分配
 /**
  * @author 
  * @email ${email}

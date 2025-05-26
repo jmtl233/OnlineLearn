@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+//实现系统角色的增删改查和分页查询。
 
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:22:45
+ * @date 
  */
 @RestController
 @RequestMapping("study/role")
@@ -27,7 +27,7 @@ public class RoleController {
     private RoleService roleService;
 
     /**
-     * 列表
+     * 查询角色列表
      */
     @RequestMapping("/list")
     public Result list(@RequestBody RoleVo roleVo) {
@@ -38,7 +38,7 @@ public class RoleController {
 
 
     /**
-     * 信息
+     * 查询角色列表
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id) {
@@ -48,7 +48,7 @@ public class RoleController {
     }
 
     /**
-     * 保存
+     * ​新增角色
      */
     @RequestMapping("/save")
     public Result save(@RequestBody RoleEntity role) {
@@ -60,7 +60,7 @@ public class RoleController {
     }
 
     /**
-     * 修改
+     * 修改角色
      */
     @RequestMapping("/update")
     public Result update(@RequestBody RoleEntity role) {
@@ -72,7 +72,7 @@ public class RoleController {
     }
 
     /**
-     * 删除
+     * 删除批量删除角色	
      */
     @RequestMapping("/delete")
     public Result delete(@RequestBody Integer[] ids) {

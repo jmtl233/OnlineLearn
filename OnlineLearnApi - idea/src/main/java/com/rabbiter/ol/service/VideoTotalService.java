@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
 public interface VideoTotalService extends IService<VideoTotalEntity> {
 

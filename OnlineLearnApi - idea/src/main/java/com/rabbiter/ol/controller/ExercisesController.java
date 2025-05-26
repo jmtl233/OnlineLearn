@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @email ${email}
  * @date 2024-02-12 00:24:20
  */
+//练习题管理模块的入口控制器
 @RestController
 @RequestMapping("study/exercises")
 public class ExercisesController {
@@ -29,7 +30,7 @@ public class ExercisesController {
     private ExercisesService exercisesService;
 
     /**
-     * 列表
+     * 带条件的分页练习题查询
      */
     @RequestMapping("/list")
     public Result list(@RequestBody ExercisesVo exercisesVo){
@@ -39,7 +40,7 @@ public class ExercisesController {
     }
 
     /**
-     * 列表
+     * 带条件的分页练习题查询
      */
     @RequestMapping("/findNotDoExercises")
     public Result findNotDoExercises(@RequestBody  ExercisesVo exercisesVo){
@@ -50,7 +51,7 @@ public class ExercisesController {
 
 
     /**
-     * 信息
+     * 通过ID获取单个练习题详情
      */
     @RequestMapping("/info/{id}")
     public Result info(@PathVariable("id") Integer id){
@@ -60,7 +61,7 @@ public class ExercisesController {
     }
 
     /**
-     * 保存
+     * 新增练习题
      */
     @RequestMapping("/save")
     public Result save(@RequestBody ExercisesEntity exercises){
@@ -73,7 +74,7 @@ public class ExercisesController {
     }
 
     /**
-     * 修改
+     * 更新习题基础信息
      */
     @RequestMapping("/update")
     public Result update(@RequestBody ExercisesEntity exercises){
@@ -85,7 +86,7 @@ public class ExercisesController {
     }
 
     /**
-     * 删除
+     * 删除指定习题
      */
     @RequestMapping("/delete")
     public Result delete(@RequestBody ExercisesEntity exercises){

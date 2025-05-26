@@ -11,10 +11,11 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-15 21:39:15
+ * @date 
  */
+//学科管理，包括新增、修改、删除、查询
 public interface UserSubjectService extends IService<UserSubjectEntity> {
-
+//分页查询用户学科关系
     Map<String, Object> queryPage(UserSubjectVo userSubjectVo);
 }
 

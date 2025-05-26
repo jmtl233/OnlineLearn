@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("study/homework")
 public class HomeworkController {
 
-    @Autowired
+    @Autowired//班级成员管服务
     private UserClassService userClassService;
 
     @Autowired
@@ -68,14 +68,16 @@ public class HomeworkController {
     }
 
     /**
-     * 保存
+     * 作业保存和更新
      */
     @RequestMapping("/save")
     public Result save(@RequestBody HomeworkEntity homework) {
         boolean save;
+        //更新作业主表
         if (homework.getId()!=null){
             save = homeworkService.updateById(homework);
             if (homework.getUserId()!=null && homework.getUserId()!=""){
+                 // 关联更新学生作业记录（包含权限校验和一致性保障）
                  userDoHomeworkService.updateModeByUserId(homework.getUserId(),homework.getId()+"",homework.getScore(),homework.getRemark());
             }
 
@@ -103,7 +105,7 @@ public class HomeworkController {
     }
 
     /**
-     * 删除
+     * 删除作业加删除关联数据
      */
     @RequestMapping("/delete")
     public Result delete(@RequestBody HomeworkEntity homework) {

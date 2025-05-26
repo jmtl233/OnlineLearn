@@ -11,12 +11,13 @@ import java.util.Map;
  * 
  *
  * @author 
- * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @email ${email}20
+ * @date 
  */
+//视频管理
 public interface VideosService extends IService<VideosEntity> {
 
-
+//分页查询视频列表
     Map<String, Object> queryPage(VideosVo videosVo);
 }
 

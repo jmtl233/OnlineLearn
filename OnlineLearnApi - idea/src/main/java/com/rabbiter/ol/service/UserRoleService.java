@@ -12,11 +12,12 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:22:45
+ * @date 
  */
+//用户--角色关系表
 public interface UserRoleService extends IService<UserRoleEntity> {
 
-
+//分页查询用户--角色关系
     Map<String, Object> queryPage(UserRoleVo userRoleVo);
 }
 

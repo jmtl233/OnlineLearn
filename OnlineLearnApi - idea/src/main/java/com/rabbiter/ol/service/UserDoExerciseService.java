@@ -12,13 +12,14 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
+//试题管理：用户完成练习、查看历史记录、统计成绩
 public interface UserDoExerciseService extends IService<UserDoExerciseEntity> {
 
-
+//分页查询练习记录
     Map<String, Object> queryPage(UserDoExerciseVo userDoExerciseVo);
-
+//更新练习成绩
     void updateScoreById(Integer id, Integer score);
 }
 

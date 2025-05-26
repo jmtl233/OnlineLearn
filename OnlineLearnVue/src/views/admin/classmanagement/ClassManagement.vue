@@ -87,7 +87,7 @@
                 dialogFormVisible:false,   //控制弹窗显示
                 form:{
                     className:'',         //班级名称
-                    userId:0,             //班主任ID
+                    userId:'',             //班主任ID
                     allTeacher:[],        //所有教师列表
                     id:'',                 //班级ID，编辑的时候启用
                 },

@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+//单视频管理的上传、存储、访问路径
+//核心功能：管理具体视频文件
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
 @RestController
 @RequestMapping("study/videos")
@@ -65,7 +66,7 @@ public class VideosController {
     }
 
     /**
-     * 保存
+     * 管理具体视频文件
      */
     @CrossOrigin
     @RequestMapping("/save")

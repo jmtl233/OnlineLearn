@@ -462,26 +462,26 @@ export default {
 }
 
 /* 下拉框样式优化 */
-:deep(.gender-popper) {
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
-}
+/*.deep(.gender-popper) {*/
+/*    border-radius: 8px !important;*/
+/*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;*/
+/*}*/
 
-.deep(.gender-option) {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 20px !important;
-    transition: all 0.2s;
-}
+/*deep(gender-option) {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    gap: 10px;*/
+/*    padding: 12px 20px !important;*/
+/*    transition: all 0.2s;*/
+/*}*/
 
-:deep(.gender-option:hover) {
-    background-color: #f5f7fa;
-}
+/*:deep(.gender-option:hover) {*/
+/*    background-color: #f5f7fa;*/
+/*}*/
 
-:deep(.gender-option i) {
-    color: #38b6ff;  /* 修改图标颜色 */
-}
+/*:deep(.gender-option i) {*/
+/*    color: #38b6ff;  !* 修改图标颜色 *!*/
+/*}*/
 
 /* 简化版注册表单样式 */
 .simple-register {
@@ -562,17 +562,17 @@ export default {
     width: 100%;
 }
 
-/* 调整抽屉标题 */
-:deep(.el-drawer__header) {
-    margin-bottom: 20px;
-    padding: 20px;
-    border-bottom: 1px solid #eee;
-}
+/*!* 调整抽屉标题 *!*/
+/*:deep(.el-drawer__header) {*/
+/*    margin-bottom: 20px;*/
+/*    padding: 20px;*/
+/*    border-bottom: 1px solid #eee;*/
+/*}*/
 
-:deep(.el-drawer__title) {
-    font-size: 18px;
-    color:rgb(70, 184, 233);
-}
+/*:deep(.el-drawer__title) {*/
+/*    font-size: 18px;*/
+/*    color:rgb(70, 184, 233);*/
+/*}*/
 
 /* 新增性别选择器左对齐样式 */
 .gender-form-item .el-form-item__label {

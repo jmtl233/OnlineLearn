@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//学生作业管理
+//学生作业提交与批改管理
+//教师批改作业，作业答案与评分存储
+//关联作业和学生的中间数据管理
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
 @RestController
 @RequestMapping("study/userdohomework")
@@ -57,7 +60,7 @@ public class UserDoHomeworkController {
         userDoHomeworkEntity.setHomeworkId(userDoHomeworkVo.getHomeworkId());
         userDoHomeworkEntity.setReply(userDoHomeworkVo.getContent());
         userDoHomeworkEntity.setUserId(userDoHomeworkVo.getUserId());
-        userDoHomeworkEntity.setMode("0");
+        userDoHomeworkEntity.setMode("0");//0表示未批改，1表示已批改
         userDoHomeworkEntity.setCompletionTime(new Date());
         boolean save = userDoHomeworkService.save(userDoHomeworkEntity);
         if (save){

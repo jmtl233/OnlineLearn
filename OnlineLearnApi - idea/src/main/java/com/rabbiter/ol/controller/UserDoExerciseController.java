@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+//用户管理系统 的核心控制器，
+//处理用户的 ​注册、登录、增删改查（CRUD）​、权限分配、班级/科目关联等操作
 /**
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
 @RestController
 @RequestMapping("study/userDoExercise")

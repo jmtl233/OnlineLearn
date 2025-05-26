@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style scoped>
-/* 基础布局 */
+/* 基础布局 */00000
 .admin-dashboard {
     min-height: 100vh;
     padding: 2rem;

@@ -45,20 +45,7 @@ export default {
 </script>
 
 
-### 5. 前端请求验证
-在浏览器开发者工具中检查：
-1. 网络请求是否返回404（路径错误）
-2. 响应头是否包含正确的Content-Type（如图片类型）
-3. 控制台是否有CORS错误（跨域问题）
 
-### 常见问题排查流程：
-1. 确认图片文件实际已上传到服务器目录
-2. 检查文件权限（Windows需赋予IIS_USER/Everyone读写权限）
-3. 直接访问图片URL测试（如 http://localhost:8080/file/imageFile/xxx.jpg）
-4. 查看后端日志是否有文件保存异常
-
-建议在前端显示封面时添加默认图片容错：
-```vue
 <img 
   :src="item.coverUrl" 
   @error="handleImageError" 
@@ -69,8 +56,7 @@ export default {
 <script>
 methods: {
   handleImageError(e) {
-    e.target.src = '/default-cover.jpg'; // 添加默认封面
+    e.target.src = 'E:\\OnlineLearn\\OnlineLearnVue\\src\\assets.jpg'; // 添加默认封面
   }
 }
 </script>
-```

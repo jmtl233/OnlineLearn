@@ -11,13 +11,13 @@ import com.rabbiter.ol.vo.SubjectVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+//学科管理模块的核心控制器，主要处理教学系统中科目相关的数据管理
 /**
  * 
  *
  * @author 
  * @email ${email}
- * @date 2024-02-15 21:39:15
+ * @date 
  */
 @RestController
 @RequestMapping("study/subject")

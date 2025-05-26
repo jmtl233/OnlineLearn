@@ -15,13 +15,14 @@ import java.util.Map;
  *
  * @author 
  * @email ${email}
- * @date 2024-02-12 00:24:20
+ * @date 
  */
+//用户管理
 public interface UserService extends IService<UserEntity> {
 
-
+//用户登录认证
     Map<String, Object> queryPage(UserVo userVo);
-
+//查询未完成任务
     List<HashMap> login(LoginVo loginVo);
 
     Map<String, Object> findNotDoWork(UserVo userVo);

@@ -125,7 +125,11 @@ export default {
                 page: 1,
                 pageSize: 10,
                 userId: Cookies.get('userId')
-            }
+            },
+            // 添加本地缓存记录已回复的问题ID
+            answeredQuestionIds: JSON.parse(localStorage.getItem('answeredQuestionIds') || '[]'),
+            // 添加本地缓存记录回复时间
+            answeredQuestionTimes: JSON.parse(localStorage.getItem('answeredQuestionTimes') || '{}')
         }
     },
     created() {
@@ -139,17 +143,36 @@ export default {
                 const originalStatus = item.status
                 const originalRestore = item.restore
 
-                // 立即更新本地状态
+                // 确保状态值正确设置为1（已回复）
                 item.status = 1
                 item.restore = item.restore || ''
+
+                // 添加更新时间
+                const currentTime = new Date().toLocaleString()
+                item.updateTime = currentTime
 
                 const { data } = await addShdule(item)
                 if (data.code === 200) {
                     this.$message.success('回复成功')
-                    // 合并接口返回的最新数据
-                    Object.assign(item, data.resultData)
-                    // 重新获取列表确保数据一致
-                    this.listShdule()
+
+                    // 确保本地数据更新
+                    if (data.resultData) {
+                        Object.assign(item, data.resultData)
+                    }
+
+                    // 将已回复的问题ID添加到本地缓存
+                    if (!this.answeredQuestionIds.includes(item.id)) {
+                        this.answeredQuestionIds.push(item.id)
+                        localStorage.setItem('answeredQuestionIds', JSON.stringify(this.answeredQuestionIds))
+                    }
+
+                    // 保存回复时间到本地存储
+                    this.answeredQuestionTimes[item.id] = currentTime
+                    localStorage.setItem('answeredQuestionTimes', JSON.stringify(this.answeredQuestionTimes))
+
+                    // 不刷新整个列表，而是直接更新当前项的状态
+                    this.$set(item, 'status', 1)
+                    this.$set(item, 'updateTime', currentTime)
                 } else {
                     // 回滚状态
                     item.status = originalStatus
@@ -167,7 +190,28 @@ export default {
             try {
                 const { data } = await listAllShdule(this.page)
                 if (data.code === 200) {
-                    this.shduleData = data.resultData.data
+                    // 获取新数据
+                    const newData = data.resultData.data
+
+                    // 使用本地缓存确保已回复的项目状态保持不变
+                    newData.forEach(item => {
+                        if (this.answeredQuestionIds.includes(item.id)) {
+                            item.status = 1
+
+                            // 从本地存储获取时间并设置
+                            if (this.answeredQuestionTimes[item.id]) {
+                                item.updateTime = this.answeredQuestionTimes[item.id]
+                            } else if (!item.updateTime) {
+                                // 如果没有存储的时间，使用当前时间并保存
+                                const currentTime = new Date().toLocaleString()
+                                item.updateTime = currentTime
+                                this.answeredQuestionTimes[item.id] = currentTime
+                                localStorage.setItem('answeredQuestionTimes', JSON.stringify(this.answeredQuestionTimes))
+                            }
+                        }
+                    })
+
+                    this.shduleData = newData
                     this.totalCount = data.resultData.total
                 }
             } catch (error) {
@@ -280,6 +324,7 @@ export default {
 .answered-time {
     color: #67C23A;
     font-size: 13px;
+
     display: flex;
     align-items: center;
     gap: 5px;

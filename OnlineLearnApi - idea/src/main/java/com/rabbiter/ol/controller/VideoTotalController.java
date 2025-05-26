@@ -68,7 +68,7 @@ public class VideoTotalController {
     }
 
     /**
-     * 新增视频集
+     * 管理视频合集
      */
     @CrossOrigin
     @RequestMapping("/save")
@@ -78,7 +78,7 @@ public class VideoTotalController {
         VideoTotalEntity videoTotalEntity = new VideoTotalEntity();
         videoTotalEntity.setTopic(topic);
         videoTotalEntity.setCreateTime(new Date());
-        videoTotalEntity.setUserId(userId);
+        videoTotalEntity.setUserId(userId);//上传
         long randomNum = System.currentTimeMillis();
         videoTotalEntity.setPath(PathUtils.getClassLoadRootPath() + "/file/imageFile/" + randomNum + file.getOriginalFilename());
 
